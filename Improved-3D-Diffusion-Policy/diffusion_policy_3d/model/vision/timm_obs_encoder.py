@@ -87,7 +87,8 @@ class TimmObsEncoder(ModuleAttrMixin):
         
         if model_name == "r3m":
             from r3m import load_r3m
-            model = load_r3m("resnet18", pretrained=pretrained) # resnet18, resnet34
+            # model = load_r3m("resnet18", pretrained=pretrained) # resnet18, resnet34
+            model = load_r3m("resnet18")
             model.eval()
             cprint(f"Loaded R3M model using {model_name}. pretrained={pretrained}", 'green')
         else:
