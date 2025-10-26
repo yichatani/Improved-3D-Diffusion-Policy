@@ -4,7 +4,7 @@ shape_meta: &shape_meta
   # acceptable types: rgb, low_dim
   obs:
     image:
-      shape: [3, 224, 224]
+      shape: [3, 384, 640]
       type: rgb
       horizon: 2
     agent_pos:
