@@ -7,24 +7,25 @@ shape_meta: &shape_meta
       shape: [3, 384, 640]
       type: rgb
       horizon: 2
-    agent_pos:
-      shape: [32]
-      type: low_dim
-      horizon: 2
+    # agent_pos:
+    #   shape: [32]
+    #   type: low_dim
+    #   horizon: 2
   action:
-    shape: [25]
-    horizon: 16
+    shape: [8]
+    horizon: 11
 
 
 dataset:
   _target_: diffusion_policy_3d.dataset.routing_dataset_image.RoutingDatasetZarr
-  zarr_path: data/routing.zarr
+  zarr_path: data/routing_sub.zarr
+  # zarr_path: data/routing.zarr
   # zarr_path: /home/ani/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/routing.zarr
   horizon: ${horizon}
   pad_before: ${eval:'${n_obs_steps}-1'}
   pad_after: ${eval:'${n_action_steps}-1'}
   seed: 42
   val_ratio: 0.00
-  max_train_episodes: 100
+  max_train_episodes: 1
   use_img: true
   use_depth: false
