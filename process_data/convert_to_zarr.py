@@ -3,8 +3,8 @@ import re
 import zarr
 import numpy as np
 
-data_path = '/home/ani/Downloads/routing'
-save_path = '/home/ani/Downloads/routing.zarr'
+data_path = '/home/ani/Downloads/routing_sub'
+save_path = '/home/ani/Downloads/routing_sub.zarr'
 
 zarr_root = zarr.open_group(save_path, mode='a')
 

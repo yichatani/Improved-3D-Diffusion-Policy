@@ -5,8 +5,7 @@
 #   bash scripts/train_policy.sh dp_224x224_r3m routing-image 10261
 #   bash scripts/train_policy.sh he_r3m routing-image 10282
 
-# dataset_path=/home/ani/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/routing.zarr
-dataset_path=/root/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/routing_sub.zarr
+dataset_path=/home/ani/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/data_routing.zarr
 
 
 DEBUG=False

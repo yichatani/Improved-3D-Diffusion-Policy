@@ -45,39 +45,77 @@ policy:
   obs_as_global_cond: true
   shape_meta: ${shape_meta}
 
-  obs_encoder:
-    _target_: diffusion_policy_3d.model.vision.timm_obs_encoder.TimmObsEncoder
-    shape_meta: ${shape_meta}
+  # obs_encoder:
+  #   _target_: diffusion_policy_3d.model.vision.timm_obs_encoder.TimmObsEncoder
+  #   shape_meta: ${shape_meta}
 
-    model_name: 'r3m'
-    pretrained: True
-    frozen: False
+  #   model_name: 'r3m'
+  #   pretrained: True
+  #   frozen: False
 
-    global_pool: ''
+  #   global_pool: ''
 
-    feature_aggregation: null
-    position_encording: 'sinusoidal' # 'learnable' or 'sinusoidal'. it only works for transformer
+  #   feature_aggregation: null
+  #   position_encording: 'sinusoidal' # 'learnable' or 'sinusoidal'. it only works for transformer
 
-    downsample_ratio: 32
+  #   downsample_ratio: 32
 
-    transforms:
-      - type: RandomCrop
-        ratio: 0.95
-      - _target_: torchvision.transforms.RandomRotation
-        degrees:
-          - -5.0
-          - 5.0
-        expand: false
-      - _target_: torchvision.transforms.ColorJitter
-        brightness: 0.3
-        contrast: 0.4
-        saturation: 0.5
-        hue: 0.08
+  #   transforms:
+  #     - type: RandomCrop
+  #       ratio: 0.95
+  #     - _target_: torchvision.transforms.RandomRotation
+  #       degrees:
+  #         - -5.0
+  #         - 5.0
+  #       expand: false
+  #     - _target_: torchvision.transforms.ColorJitter
+  #       brightness: 0.3
+  #       contrast: 0.4
+  #       saturation: 0.5
+  #       hue: 0.08
      
 
+  #   use_group_norm: True
+  #   share_rgb_model: False
+  #   imagenet_norm: True
+
+  obs_encoder:
+    _target_: diffusion_policy_3d.model.vision_3d.vggt_encoder.VODPEncoder
+    shape_meta: ${shape_meta}
+    resize_shape: null
+    crop_shape: null
+    # constant center crop
+    random_crop: True
     use_group_norm: True
     share_rgb_model: False
     imagenet_norm: True
+    out_channels: 526
+    # rgb_key: ["head_cam", "front_cam"]
+    emvis_config:
+      dim_2d: null
+      dim_3d_keys: ['frame', 'global']
+      load_vggt_heads: true
+      load_vggt_pretrain: true
+      vggt_model_path: pretrained/VGGT-1B/model.pt
+      interpolate: 'bilinear'
+      mlp_ratio: 1.0
+      drop_p: 0.0
+      ft_heads: []
+      ft_layer_idx: []
+      intermediate_layer_idx: [23]
+      seq_as_view: False
+      only_first_view: True
+      injector_config:
+        fuse_2d: True
+        fuse_3d: False
+        ffn_layer_num: 1
+        dim_out: 1024
+      model_adapter_config:
+        target: ResNetAdapter
+        shape_out: [1, 1]
+        dim_out: 1024
+        conv_num: 3
+      mv_fuser_config: {}
 
 
 ema:
